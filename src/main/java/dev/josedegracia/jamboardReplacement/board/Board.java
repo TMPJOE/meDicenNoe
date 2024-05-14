@@ -28,12 +28,16 @@ public class Board {
     }
 
     //id
-    public long getId() {
+    public int getId() {
         return id;
     }
+
     //name
     public String getName() {
         return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
     //creationDate
     public LocalDateTime getCreationDate() {

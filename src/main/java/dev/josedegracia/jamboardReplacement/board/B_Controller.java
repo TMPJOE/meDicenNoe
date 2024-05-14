@@ -25,6 +25,20 @@ public class B_Controller {
         b_repository.createBoard(bName);
     }
 
+    //put
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    void updateBoard(@PathVariable Integer id, @RequestBody String name){
+        b_repository.updateBoard(name, id);
+    }
+
+    //delete
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Integer id){
+        b_repository.deleteBoard(id);
+    }
+
     @GetMapping("")
     List<Board> findAll(){
         return b_repository.findAll();

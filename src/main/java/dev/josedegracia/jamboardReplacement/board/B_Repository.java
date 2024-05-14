@@ -11,7 +11,7 @@ import java.util.Random;
 
 @Repository
 public class B_Repository {
-    Random randomId = new Random();
+
     private  List <Board> boards = new ArrayList<>();
 
     List<Board> findAll(){
@@ -22,6 +22,17 @@ public class B_Repository {
     //create a new board
     public void createBoard(String bName){
         boards.add(new Board(bName));
+    }
+
+    //update board
+    void updateBoard(String name, Integer id){
+        Optional<Board> existingBoard = findById(id);
+        existingBoard.ifPresent(board -> board.setName(name));
+    }
+
+    //delete board
+    void deleteBoard(int id){
+        boards.removeIf(board -> board.getId() == (id));
     }
 
     Optional<Board> findById(int id){
