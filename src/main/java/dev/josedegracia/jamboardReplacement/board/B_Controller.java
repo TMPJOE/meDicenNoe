@@ -19,8 +19,10 @@ public class B_Controller {
     }
 
     //post
-    void createBoard(@RequestBody Board board){
-        b_repository.createBoard(board);
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    void createBoard(@RequestBody String bName){
+        b_repository.createBoard(bName);
     }
 
     @GetMapping("")

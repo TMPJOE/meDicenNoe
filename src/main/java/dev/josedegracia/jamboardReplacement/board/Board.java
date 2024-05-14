@@ -2,20 +2,23 @@ package dev.josedegracia.jamboardReplacement.board;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class Board {
+
+    Random randomId = new Random();
     private int id;
     private String name;
     private LocalDateTime creationDate;
     private Set<AnonymounsUser> collaborators = new HashSet<>(); // Default empty set
 
     //constructor
-    public Board(int id, String name, LocalDateTime creationDate, AnonymounsUser collaborator) {
-        this.id = id;
+    public Board(String name) {
+        this.id = randomId.nextInt();
         this.name = name;
-        this.creationDate = creationDate;
-        this.collaborators.add(collaborator);
+        this.creationDate = LocalDateTime.now();
+        this.collaborators.add(new AnonymounsUser());
     }
 
     //setters and getters

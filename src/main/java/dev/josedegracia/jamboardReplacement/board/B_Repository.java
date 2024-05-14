@@ -20,8 +20,8 @@ public class B_Repository {
     }
 
     //create a new board
-    public void createBoard(Board board){
-        boards.add(board);
+    public void createBoard(String bName){
+        boards.add(new Board(bName));
     }
 
     Optional<Board> findById(int id){
@@ -33,7 +33,7 @@ public class B_Repository {
 
     @PostConstruct
     private void init(){
-        boards.add(new Board(randomId.nextInt(), "Board 1", LocalDateTime.now(), new AnonymounsUser()));
-        boards.add(new Board(randomId.nextInt(), "Board 2", LocalDateTime.now(), new AnonymounsUser()));
+        boards.add(new Board( "Board 1"));
+        boards.add(new Board("Board 2"));
     }
 }
