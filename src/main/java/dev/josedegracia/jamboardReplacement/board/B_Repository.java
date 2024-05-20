@@ -4,7 +4,6 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 @Repository
 public class B_Repository {
 
-    private  List <Board> boards = new ArrayList<>();
+    private final List <Board> boards = new ArrayList<>();
 
     List<Board> findAll(){
         //return all boards with toString
@@ -49,7 +48,7 @@ public class B_Repository {
         boards.add(new Board("Board 2"));
     }
 
-    List<Board> findbyDate(LocalDate date){
+    List<Board> findByDate(LocalDate date){
         //return boards by date
         return boards.stream()
                 .filter(board -> board.getCreationDate().toLocalDate().equals(date))

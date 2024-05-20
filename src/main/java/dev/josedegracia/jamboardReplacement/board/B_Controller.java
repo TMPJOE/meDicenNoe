@@ -46,7 +46,7 @@ public class B_Controller {
 
     @GetMapping("/{date}")//se tiene que dar: año-mes-dia
     List<Board> findByDate (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
-        return b_repository.findbyDate(date);
+        return b_repository.findByDate(date);
     }
 
     @GetMapping("/{id}")
