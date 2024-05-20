@@ -1,10 +1,10 @@
 package dev.josedegracia.jamboardReplacement.board;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +44,11 @@ public class B_Controller {
         return b_repository.findAll();
     }
 
+    @GetMapping("/{date}")//se tiene que dar: año-mes-dia
+    List<Board> findByDate (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
+        return b_repository.findbyDate(date);
+    }
+
     @GetMapping("/{id}")
     Board findById(@PathVariable int id){
         Optional<Board> board = b_repository.findById(id);
@@ -52,7 +57,5 @@ public class B_Controller {
         }
         return board.get();
     }
-
-
 
 }
