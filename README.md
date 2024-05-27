@@ -6,7 +6,13 @@
   * JS (OLIVER Y SAMUEL)
 * BACKEND
   * API REST (JOSE)
-  * DATABASE (EIVAR, KEVIN, NELSON)   * Link de la DATABASE sqldata.ctquqk6q4145.us-east-2.rds.amazonaws.com
+  * DATABASE (EIVAR, KEVIN, NELSON)   
+
+* Link de la DATABASE sqldata.ctquqk6q4145.us-east-2.rds.amazonaws.com
+* Usuario AdminEivar
+
+* Password BaseDeDatos230415
+
 
 ## PRIORIDADES MAYOR A MENOR
 1. HTML, CSS Y JS(SAMUEL)
