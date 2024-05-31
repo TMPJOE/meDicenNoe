@@ -29,7 +29,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function loadBoards() {
-            fetch('http://localhost:8080/api/boards/')
+            fetch('http://localhost:8080/api/boards')
                 .then(response => response.json())
                 .then(data => {
                     const boardsList = document.querySelector('.boards-list');
@@ -57,7 +57,7 @@
                 name: document.getElementById('name').value
             };
 
-            fetch('http://localhost:8080/api/boards/', {
+            fetch('http://localhost:8080/api/boards', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
