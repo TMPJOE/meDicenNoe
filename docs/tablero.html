@@ -7,54 +7,23 @@
     <link rel="icon" href="B.png" type="image/png">
 </head>
 <body>
-    <!--BOTONES INICIO-->
-    <div class="wrapper">
-        <!--COLORES DEL BOLIGRAFO INICIO-->
-        <div class="form_input">
-            <label for="colores">Colores:</label>
-            <select name="colores" id="colores">
-                <option value="Negro">Negro</option>
-                <option value="Rojo">Rojo</option>
-                <option value="Azul">Azul</option>
-                <option value="Verde">Verde</option>
-                <option value="Blanco">Blanco</option>
-                <option value="Amarillo">Amarillo</option>
-            </select>
-        </div>
-        <!--COLORES DEL BOLIGRAFO FIN-->
-        
-        <!--BOTONES-->
-        <div class="button-container">
-            <button class="btn-borrador">BORRAR</button>
-            <button class="btn-seleccionar">SELECCIONAR</button>
-            <button class="btn-nota-adh">NOTA ADHESIVA</button>
-            <button class="btn-añadir-img">AÑADIR IMAGEN</button>
-            <button class="btn-cuadro-txt">CUADRO TEXTO</button>
-            <button class="btn-laser">LASER</button>
-            <button class="btn-deshacer">DESHACER</button>
-            <button class="btn-rehacer">REHACER</button>
-        </div>
-        <!--BOTONES FIN-->
+<!-- Aquí irán los botones y funcionalidades del tablero -->
 
-        <!--ZOOM INICIO-->
-        <div class="form_input">
-            <label for="zooms">Zoom:</label>
-            <select name="zooms" id="zooms">
-                <option value="55p">Ajustar (55%)</option>
-                <option value="25p">25%</option>
-                <option value="50p">50%</option>
-                <option value="100p">100%</option>
-                <option value="200p">200%</option>
-            </select>
-        </div>
-        <!--ZOOM FIN-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const boardId = urlParams.get('id');
 
-        <!--MAS OPCIONES INICIO-->
-        <div class="button-container">
-            <button class="btn-mas-opciones">MAS OPCIONES</button>
-        </div>
-        <!--MAS OPCIONES FIN-->
-    </div>
-    <!--BOTONES FIN-->
+        // Aquí puedes hacer una solicitud para cargar los detalles del tablero usando el boardId
+        fetch(`http://localhost:8080/api/boards/${boardId}`)
+            .then(response => response.json())
+            .then(board => {
+                // Aquí puedes cargar los datos del tablero en la página
+            })
+            .catch(error => {
+                console.log('Error al cargar el tablero', error);
+            });
+    });
+</script>
 </body>
 </html>

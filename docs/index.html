@@ -1,17 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width-device-width", initial-scale="1.0">
-        <title>Jamboard2</title>
-        <link rel="icon" href="B.png" type="image/png">
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="busqueda">
-                <input type="text" placeholder="Busqueda">
-            </div>
-            <a href="tablero.html" target="_self">Tablero</a>
-        </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamboard2</title>
+    <link rel="icon" href="B.png" type="image/png">
+</head>
+<body>
+<div class="wrapper">
+    <div class="busqueda">
+        <input type="text" placeholder="Busqueda">
+    </div>
+    <div class="boards-list">
+        <!-- Aquí se cargarán los tableros -->
+    </div>
+    <div class="create-board">
+        <h2>Crear Nuevo Tablero</h2>
+        <form id="boardForm">
+            <label for="author">Autor:</label>
+            <input type="text" id="author" name="author" required>
+            <label for="name">Nombre del Tablero:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="submit">Crear</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function loadBoards() {
+            fetch('http://localhost:8080/api/boards/')
+                .then(response => response.json())
+                .then(data => {
+                    const boardsList = document.querySelector('.boards-list');
+                    boardsList.innerHTML = '';
+                    data.forEach(board => {
+                        const boardDiv = document.createElement('div');
+                        boardDiv.classList.add('board');
+                        boardDiv.innerHTML = `
+                                <p>Autor: ${board.author}</p>
+                                <p>Nombre del Tablero: ${board.name}</p>
+                                <a href="tablero.html?id=${board.id}" target="_self">Abrir Tablero</a>
+                            `;
+                        boardsList.appendChild(boardDiv);
+                    });
+                })
+                .catch(error => {
+                    console.log('Error al cargar los tableros', error);
+                });
+        }
+
+        document.getElementById('boardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const board = {
+                author: document.getElementById('author').value,
+                name: document.getElementById('name').value
+            };
+
+            fetch('http://localhost:8080/api/boards/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(board)
+            })
+                .then(response => response.json())
+                .then(response => {
+                    loadBoards();
+                    document.getElementById('author').value = '';
+                    document.getElementById('name').value = '';
+                })
+                .catch(error => {
+                    console.log('Error al crear el tablero', error);
+                });
+        });
+
+        loadBoards();
+    });
+</script>
+</body>
 </html>
