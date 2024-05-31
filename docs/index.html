@@ -38,7 +38,7 @@
                         const boardDiv = document.createElement('div');
                         boardDiv.classList.add('board');
                         boardDiv.innerHTML = `
-                                <p>Autor: ${board.author}</p>
+                                <p>Autor: ${board.owner}</p>
                                 <p>Nombre del Tablero: ${board.name}</p>
                                 <a href="tablero.html?id=${board.id}" target="_self">Abrir Tablero</a>
                             `;
@@ -53,7 +53,7 @@
         document.getElementById('boardForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const board = {
-                author: document.getElementById('owner').value, // Aquí es donde se obtiene el valor del input 'owner'
+                owner: document.getElementById('owner').value, // Aquí es donde se obtiene el valor del input 'owner'
                 name: document.getElementById('name').value
             };
 
@@ -65,7 +65,7 @@
                 body: JSON.stringify(board)
             })
                 .then(response => response.json())
-                .then(response => {
+                .then(() => {
                     loadBoards();
                     document.getElementById('owner').value = '';
                     document.getElementById('name').value = '';
