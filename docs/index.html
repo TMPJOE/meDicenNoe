@@ -67,7 +67,7 @@
                 .then(response => response.json())
                 .then(response => {
                     loadBoards();
-                    document.getElementById('author').value = '';
+                    document.getElementById('owner').value = '';
                     document.getElementById('name').value = '';
                 })
                 .catch(error => {

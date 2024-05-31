@@ -9,6 +9,7 @@ import java.util.Optional;
 
 
 @RestController
+@CrossOrigin(origins = "https://tmpjoe.github.io")
 @RequestMapping("/api/boards")
 public class B_Controller {
 
