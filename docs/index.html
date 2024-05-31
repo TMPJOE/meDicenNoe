@@ -17,8 +17,8 @@
     <div class="create-board">
         <h2>Crear Nuevo Tablero</h2>
         <form id="boardForm">
-            <label for="author">Autor:</label>
-            <input type="text" id="author" name="author" required>
+            <label for="owner">Autor:</label>
+            <input type="text" id="owner" name="owner" required> <!-- Cambiado de 'author' a 'owner' -->
             <label for="name">Nombre del Tablero:</label>
             <input type="text" id="name" name="name" required>
             <button type="submit">Crear</button>
@@ -53,7 +53,7 @@
         document.getElementById('boardForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const board = {
-                author: document.getElementById('author').value,
+                author: document.getElementById('owner').value,
                 name: document.getElementById('name').value
             };
 
