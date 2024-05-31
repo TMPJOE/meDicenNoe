@@ -1,50 +1,55 @@
 package dev.josedegracia.jamboardReplacement.board;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
 
+
+@Entity
 public class Board {
-
-    Random randomId = new Random();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private LocalDateTime creationDate;
-    private Set<AnonymounsUser> collaborators = new HashSet<>(); // Default empty set
+    private String owner;  // Almacena el nombre del propietario
 
-    //constructor
-    public Board(String name) {
-        this.id = randomId.nextInt();
-        this.name = name;
+    public Board() {
+        //creación de la fecha de creación
         this.creationDate = LocalDateTime.now();
-        this.collaborators.add(new AnonymounsUser());
     }
 
-    //setters and getters
-    //add collaborator
-    public void addCollaborator(AnonymounsUser collaborator){
-        collaborators.add(collaborator);
-    }
+    // Getters y settersBoar
 
-    //id
     public int getId() {
         return id;
     }
 
-    //name
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
-    //creationDate
+
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
-    //collaborators
-    public Set<AnonymounsUser> getCollaborators() {
-        return collaborators;
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

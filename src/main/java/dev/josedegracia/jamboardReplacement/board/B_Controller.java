@@ -1,61 +1,76 @@
 package dev.josedegracia.jamboardReplacement.board;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@RestController // This class is a REST controller
+
+@RestController
 @RequestMapping("/api/boards")
 public class B_Controller {
 
-    private final B_Repository b_repository;
+    private final B_Service b_service;
 
-    public B_Controller(B_Repository b_repository) {
-        this.b_repository = b_repository;
+    public B_Controller(B_Service b_service) {
+        this.b_service = b_service;
     }
 
-    //post
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
-    void createBoard(@RequestBody String bName){
-        b_repository.createBoard(bName);
-    }
-
-    //put
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{id}")
-    void updateBoard(@PathVariable Integer id, @RequestBody String name){
-        b_repository.updateBoard(name, id);
-    }
-
-    //delete
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    void delete(@PathVariable Integer id){
-        b_repository.deleteBoard(id);
-    }
-
+    // GET methods
     @GetMapping("")
-    List<Board> findAll(){
-        return b_repository.findAll();
-    }
-
-    @GetMapping("/{date}")//se tiene que dar: año-mes-dia
-    List<Board> findByDate (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
-        return b_repository.findByDate(date);
+    public List<Board> findAll() {
+        return b_service.findAll();
     }
 
     @GetMapping("/{id}")
-    Board findById(@PathVariable int id){
-        Optional<Board> board = b_repository.findById(id);
-        if (board.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return board.get();
+    public ResponseEntity<Board> getBoardById(@PathVariable int id) {
+        Optional<Board> board = b_service.findById(id);
+        return board.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/find/{date}")
+    public List<Board> getBoardsByDate(@PathVariable LocalDate date) {
+        return b_service.findByDate(date);
+    }
+
+    // POST methods
+    @PostMapping("")
+    public ResponseEntity<Board> createBoard(@RequestBody Board board) {
+        Board savedBoard = b_service.save(board);
+        return ResponseEntity.ok(savedBoard);
+    }
+
+    // PUT methods
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public ResponseEntity<Board> updateBoard(@PathVariable int id, @RequestBody Board boardDetails) {
+        b_service.updateBoard(boardDetails.getName(), id);
+        return ResponseEntity.ok().build();
+    }
+
+    // DELETE methods
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBoard(@PathVariable int id) {
+        b_service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+    // Método para generar identificadores temporales de colaboradores
+    /*@GetMapping("/{id}/collaborators")
+    public List<String> getCollaborators(@PathVariable int id) {
+        // Generar nombres de animales como identificadores de colaboradores
+        String[] animals = {"Tiger", "Elephant", "Lion", "Zebra", "Giraffe",
+                "Monkey", "Panda", "Koala", "Kangaroo", "Penguin", "Polar bear",
+                "Seal", "Walrus", "Dolphin", "Shark", "Whale", "Octopus", "Jellyfish"
+        };
+        Random random = new Random();
+        return random.ints(5, 0, animals.length)
+                .mapToObj(i -> animals[i])
+                .collect(Collectors.toList());
+    }*/
 }
