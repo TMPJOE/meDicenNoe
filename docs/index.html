@@ -53,7 +53,7 @@
         document.getElementById('boardForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const board = {
-                author: document.getElementById('owner').value,
+                author: document.getElementById('owner').value, // Aquí es donde se obtiene el valor del input 'owner'
                 name: document.getElementById('name').value
             };
 
