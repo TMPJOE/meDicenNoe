@@ -19,7 +19,8 @@
             .then(response => response.json())
             .then(board => {
                 // Aquí puedes cargar los datos del tablero en la página
-                console.log(board);
+                <p>Autor: ${board.owner}</p>
+                <p>Nombre del Tablero: ${board.name}</p>
             })
             .catch(error => {
                 console.log('Error al cargar el tablero', error);
