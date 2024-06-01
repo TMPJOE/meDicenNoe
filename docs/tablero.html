@@ -7,6 +7,7 @@
     <link rel="icon" href="B.png" type="image/png">
 </head>
 <body>
+<div id="board-info"></div>
 <!-- Aquí irán los botones y funcionalidades del tablero -->
 
 <script>
@@ -14,21 +15,27 @@
         const urlParams = new URLSearchParams(window.location.search);
         const boardId = urlParams.get('id');
 
-        // Aquí puedes hacer una solicitud para cargar los detalles del tablero usando el boardId
-        fetch(`http://localhost:8080/api/boards/${boardId}`)
-            .then(response => response.json())
-            .then(board => {
-                // Aquí puedes cargar los datos del tablero en la página
-                const boardDiv = document.createElement('div');
-                boardDiv.classList.add('board');
-                boardDiv.innerHTML = `
-                    <p>Autor: ${board.owner}</p>
-                    <p>Nombre del Tablero: ${board.name}</p>
-                `;
-            })
-            .catch(error => {
-                console.log('Error al cargar el tablero', error);
-            });
+        if (boardId) {
+            fetch(`http://localhost:8080/api/boards/${boardId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(board => {
+                    const boardDiv = document.getElementById('board-info');
+                    boardDiv.innerHTML = `
+                            <p>Autor: ${board.owner}</p>
+                            <p>Nombre del Tablero: ${board.name}</p>
+                        `;
+                })
+                .catch(error => {
+                    console.error('Error al cargar el tablero', error);
+                });
+        } else {
+            console.error('No se proporcionó un ID de tablero en la URL');
+        }
     });
 </script>
 </body>
