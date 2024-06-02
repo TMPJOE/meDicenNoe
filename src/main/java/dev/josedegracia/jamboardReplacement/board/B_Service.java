@@ -39,7 +39,7 @@ public class B_Service {
                 .collect(Collectors.toList());
     }
 
-    public void updateBoard(String name, Integer id) {
+    public void updateNameBoard(String name, Integer id) {
         Optional<Board> existingBoard = findById(id);
         existingBoard.ifPresent(board -> {
             board.setName(name);
