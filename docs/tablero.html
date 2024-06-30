@@ -18,7 +18,7 @@
         const boardId = urlParams.get('id');
 
         if (boardId) {
-            fetch(`http://localhost:8080/api/boards/${boardId}`)
+            fetch(`http://tmpjoe.github.io/api/boards/${boardId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok ' + response.statusText);
