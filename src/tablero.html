@@ -1,0 +1,49 @@
+<!-- public/tablero.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamboard2</title>
+    <link rel="icon" href="B.png" type="image/png">
+</head>
+<body>
+<div id="board-info"></div>
+<div id="app-root"></div>
+<!-- Aquí irán los botones y funcionalidades del tablero -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const boardId = urlParams.get('id');
+
+        if (boardId) {
+            fetch(`http://localhost:8080/api/boards/${boardId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(board => {
+                    const boardDiv = document.getElementById('board-info');
+                    boardDiv.innerHTML = `
+                        <h2>${board.name}</h2>
+                        <p>Autor: ${board.owner}</p>
+                    `;
+
+                    const script = document.createElement('script');
+                    script.src = "/static/js/main.js";  // Ruta al bundle de React
+                    script.async = true;
+                    document.getElementById('app-root').appendChild(script);
+                })
+                .catch(error => {
+                    console.error('Error al cargar el tablero', error);
+                });
+        } else {
+            console.error('No se proporcionó un ID de tablero en la URL');
+        }
+    });
+</script>
+</body>
+</html>

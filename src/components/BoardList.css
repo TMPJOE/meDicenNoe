@@ -1,0 +1,32 @@
+.board-list {
+  padding: 20px;
+}
+
+.board-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.board-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.board-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.board-thumbnail {
+  width: 100%;
+  height: auto;
+}
+
+.board-info {
+  padding: 10px;
+}
