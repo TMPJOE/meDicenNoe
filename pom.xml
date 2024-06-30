@@ -52,9 +52,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.cloudinary</groupId>
-			<artifactId>cloudinary-http45</artifactId>
-			<version>1.38.0</version>
+			<!-- firebase -->
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>8.1.0</version>
 		</dependency>
 
 

@@ -5,9 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class WebApp {
 
 	private static final Logger log =  LoggerFactory.getLogger(WebApp.class);
@@ -18,9 +19,7 @@ public class WebApp {
 
 	@Bean
 	CommandLineRunner runner() {
-		return args -> {
-			log.info("Application started");
-		};
+		return args -> log.info("Application started");
 	}
 
 }
