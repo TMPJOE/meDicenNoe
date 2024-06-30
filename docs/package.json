@@ -1,5 +1,6 @@
 {
   "name": "jamboard",
+  "homepage": "https://tmpjoe.github.io/Jamboard/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +11,8 @@
     "react-canvas-draw": "^1.2.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
